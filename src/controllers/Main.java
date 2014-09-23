@@ -2,6 +2,7 @@ package controllers;
 
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import models.User;
@@ -31,7 +32,7 @@ public class Main
 	  @Command(description="Get all users details")
 	  public void getUsers ()
 	  {
-		  List<User> users = paceApi.getUsers();
+		  Collection<User> users = paceApi.getUsers();
 		  System.out.println(users);
 	  }
 	
