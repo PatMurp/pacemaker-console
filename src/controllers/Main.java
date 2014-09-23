@@ -1,6 +1,10 @@
 package controllers;
 
+
 import java.io.IOException;
+import java.util.List;
+
+import models.User;
 import asg.cliche.Command;
 import asg.cliche.Param;
 import asg.cliche.Shell;
@@ -8,28 +12,34 @@ import asg.cliche.ShellFactory;
 
 public class Main
 {
-  @Command
-  public void createUser (String firstName,  String lastName, 
-                          String email,      String password)
-  {
-  }
-
-  @Command
-  public void getUser (String email)
-  {
-
-  }
-
-  @Command
-  public void getUsers ()
-  {
-
-  }
-
-  @Command
-  public void deleteUser (String email)
-  {
-  }
+	PacemakerAPI paceApi = new PacemakerAPI();
+	
+	@Command(description="Create a new User")
+	  public void createUser (@Param(name="first name") String firstName, @Param(name="last name") String lastName, 
+	                          @Param(name="email")      String email,     @Param(name="password")  String password)
+	  {
+		paceApi.createUser(firstName, lastName, email, password);
+	  }
+	
+	  @Command(description="Get a Users details")
+	  public void getUser (@Param(name="email") String email)
+	  {
+		  User user = paceApi.getUser(email);
+		  System.out.println(user);
+	  }
+	
+	  @Command(description="Get all users details")
+	  public void getUsers ()
+	  {
+		  List<User> users = paceApi.getUsers();
+		  System.out.println(users);
+	  }
+	
+	  @Command(description="Delete a User")
+	  public void deleteUser (@Param(name="email") String email)
+	  {
+		  paceApi.deleteUser(email);
+	  }
 
   public static void main(String[] args) throws IOException
   {
