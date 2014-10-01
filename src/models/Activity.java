@@ -26,7 +26,6 @@ public class Activity
 
   public Activity(String type, String location, double distance)
   {
-
     this.id = counter++;
     this.type = type;
     this.location = location;
@@ -36,8 +35,12 @@ public class Activity
   @Override
   public String toString()
   {
-    return toStringHelper(this).addValue(id).addValue(type).addValue(location).addValue(distance).addValue(route)
-        .toString();
+    return toStringHelper(this) .addValue(id)
+                                .addValue(type)
+                                .addValue(location)
+                                .addValue(distance)
+                                .addValue(route)
+                                .toString();
   }
 
   @Override

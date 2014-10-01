@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -73,10 +74,20 @@ public class Main
 
   }
 
-  public static void main(String[] args) throws IOException
+  public static void main(String[] args) throws Exception
   {
+    Main main = new Main();
+    
+    File datastore = new File("datastore.xml");
+    if (datastore.isFile())
+    {
+      main.paceApi.load(datastore);
+    }
+    
     Shell shell = ShellFactory.createConsoleShell("pc", "Welcome to pcemaker-console - ?help for instructions",
-        new Main());
+        main);
     shell.commandLoop();
+    
+    main.paceApi.store(datastore);
   }
 }

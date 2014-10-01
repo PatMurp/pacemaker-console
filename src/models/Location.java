@@ -28,7 +28,10 @@ public class Location
   @Override
   public String toString()
   {
-    return toStringHelper(this).addValue(id).addValue(latitude).addValue(longitude).toString();
+    return toStringHelper(this) .addValue(id)
+                                .addValue(latitude)
+                                .addValue(longitude)
+                                .toString();
   }
 
   @Override
