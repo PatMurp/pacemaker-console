@@ -1,7 +1,6 @@
 package models;
 
 import static com.google.common.base.Objects.toStringHelper;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +18,20 @@ public class User
   public String email;
   public String password;
 
-  // public List<Activity> activities = new ArrayList<>();
+  
   public Map<Long, Activity> activities = new HashMap<>();
 
   public User()
   {
   }
 
+  /**
+   * User Constructor
+   * @param firstName
+   * @param lastName
+   * @param email
+   * @param password
+   */
   public User(String firstName, String lastName, String email, String password)
   {
     this.id = counter++;
@@ -36,14 +42,27 @@ public class User
     this.password = password;
   }
 
+  /** 
+   * @return string representation
+   */
+  @SuppressWarnings("deprecation")
   @Override
   public String toString()
   {
-    return toStringHelper(this).addValue(id).addValue(firstName).addValue(lastName).addValue(password).addValue(email)
-        .addValue(activities)
-        .toString();
+    return toStringHelper(this).addValue(id)
+                               .addValue(firstName)
+                               .addValue(lastName)
+                               .addValue(password)
+                               .addValue(email)
+                               .addValue(activities)
+                               .toString();
   }
+  
+  
 
+  /**
+   * @return a hash code value
+   */
   @Override
   public int hashCode()
   {

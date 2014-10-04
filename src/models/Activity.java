@@ -24,6 +24,12 @@ public class Activity
   {
   }
 
+  /**
+   * Activity Constructor
+   * @param type
+   * @param location
+   * @param distance
+   */
   public Activity(String type, String location, double distance)
   {
     this.id = counter++;
@@ -32,6 +38,10 @@ public class Activity
     this.distance = distance;
   }
 
+  /** 
+   * @return string representation
+   */
+  @SuppressWarnings("deprecation")
   @Override
   public String toString()
   {
@@ -43,10 +53,12 @@ public class Activity
                                 .toString();
   }
 
+  /**
+   * @return a hash code value
+   */
   @Override
   public int hashCode()
   {
     return Objects.hashCode(this.id, this.type, this.location, this.distance);
   }
-
 }

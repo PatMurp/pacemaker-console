@@ -17,6 +17,11 @@ public class Location
   {
   }
 
+  /**
+   * Location Constructor
+   * @param latitude
+   * @param longitude
+   */
   public Location(float latitude, float longitude)
   {
 
@@ -24,7 +29,11 @@ public class Location
     this.latitude = latitude;
     this.longitude = longitude;
   }
-
+  
+  /** 
+   * @return string representation
+   */
+  @SuppressWarnings("deprecation")
   @Override
   public String toString()
   {
@@ -34,6 +43,9 @@ public class Location
                                 .toString();
   }
 
+  /**
+   * @return a hash code value
+   */
   @Override
   public int hashCode()
   {
