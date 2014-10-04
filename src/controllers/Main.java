@@ -54,14 +54,25 @@ public class Main
 	  }
 	
 	  /**
-	   * Command to get a users details using email address
+	   * Command to list a user based on email
 	   * @param email
 	   */
 	  @Command(description="Get a Users details")
-	  public void getUser (@Param(name="email") String email)
+	  public void listUser (@Param(name="email") String email)
 	  {
 		  User user = paceApi.getUserByEmail(email);
 		  System.out.println(user);
+	  }
+	  
+	  /**
+	   * Command to list a user based on id
+	   * @param id
+	   */
+	  @Command(description="Get a Users details")
+	  public void listUser(@Param(name="id")Long id)
+	  {
+	    User user = paceApi.getUser(id);
+	    System.out.println(user);
 	  }
 	
 	  /**

@@ -20,6 +20,10 @@ public class PacemakerAPI
   private Map<Long, Activity> activitiesIndex = new HashMap<>();
   
  
+  /**
+   * PacemakerAPI serializer Constructor
+   * @param serializer
+   */
   public PacemakerAPI(Serializer serializer)
   {
     this.serializer = serializer;
@@ -27,6 +31,7 @@ public class PacemakerAPI
 
  
   /**
+   * Load the users, email, and activities data
    * @throws Exception
    */
   @SuppressWarnings("unchecked")
@@ -39,6 +44,7 @@ public class PacemakerAPI
   }
   
   /**
+   * Store the users, email, and activities data
    * @throws Exception
    */
   void store() throws Exception
@@ -49,12 +55,18 @@ public class PacemakerAPI
     serializer.write();
   }
   
+  /**
+   * @return all user details
+   */
   public Collection<User> getUsers()
   {
     return userIndex.values();
   }
 
   
+  /**
+   * delete user data from user and email maps
+   */
   public void deleteUsers()
   {
     userIndex.clear();
@@ -62,6 +74,7 @@ public class PacemakerAPI
   }
 
   /**
+   * Create a new user and add data to the user and email maps
    * @param firstName
    * @param lastName
    * @param email
@@ -76,16 +89,29 @@ public class PacemakerAPI
     return user;
   }
 
+  /**
+   * Get a user details using users email address
+   * @param email
+   * @return user details
+   */
   public User getUserByEmail(String email)
   {
     return emailIndex.get(email);
   }
 
+  /**
+   * Get a user details using the users id
+   * @param id
+   * @return user details
+   */
   public User getUser(Long id)
   {
     return userIndex.get(id);
   }
 
+  /**
+   * @param id
+   */
   public void deleteUser(Long id)
   {
     User user = userIndex.remove(id);
