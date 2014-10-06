@@ -37,7 +37,6 @@ public class Main
     }
   }
 
-	
 	/**
 	 * Command to create a new user
 	 * 
@@ -76,23 +75,23 @@ public class Main
 	  }
 	
 	  /**
-	   * Command to get all user details
+	   * Command to list all users
 	   */
 	  @Command(description="Get all users details")
-	  public void getUsers ()
+	  public void listUsers ()
 	  {
 		  Collection<User> users = paceApi.getUsers();
 		  System.out.println(users);
 	  }
 	
 	  /**
-	   * Command to delete a user using email address
-	   * @param email
+	   * Command to delete a user using id
+	   * @param id
 	   */
 	  @Command(description="Delete a User")
-	  public void deleteUser (@Param(name="email") String email)
+	  public void deleteUser (@Param(name="email") Long id)
 	  {
-		  Optional<User> user = Optional.fromNullable(paceApi.getUserByEmail(email));
+		  Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
 		  if (user.isPresent())
 		  {
 			  paceApi.deleteUser(user.get().id);

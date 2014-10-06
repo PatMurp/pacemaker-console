@@ -121,7 +121,7 @@ public class PacemakerAPI
   public void createActivity(Long id, String type, String location, double distance)
   {
     Activity activity = new Activity(type, location, distance);
-    Optional<User> user = Optional.fromNullable(userIndex.get(id)); //is Optional.fromNullable in lab??
+    Optional<User> user = Optional.fromNullable(userIndex.get(id)); 
     if (user.isPresent())
     {
       user.get().activities.put(activity.id, activity);
