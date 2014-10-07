@@ -17,6 +17,9 @@ public class Activity
   public String type;
   public String location;
   public double distance;
+  
+  public String startTime;
+  public Long duration;
 
   public List<Location> route = new ArrayList<>();
 

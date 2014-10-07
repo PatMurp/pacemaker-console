@@ -14,7 +14,7 @@ public class XMLSerializer implements Serializer
 {
 
  @SuppressWarnings("rawtypes")
-private Stack stack = new Stack<>();
+ private Stack stack = new Stack<>();
  private File file;
  
  
@@ -58,9 +58,7 @@ private Stack stack = new Stack<>();
   }
 
   
-  /* (non-Javadoc)
-   * @see utils.Serializer#write()
-   */
+  
   public void write() throws Exception
   {
     ObjectOutputStream os = null;
