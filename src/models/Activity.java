@@ -64,4 +64,24 @@ public class Activity
   {
     return Objects.hashCode(this.id, this.type, this.location, this.distance);
   }
+  
+  /** 
+   * @return true if other object is equal to this one, otherwise return false
+   */
+  @Override
+  public boolean equals(final Object obj)
+  {
+    if (obj instanceof Activity)
+    {
+      final Activity other = (Activity) obj;
+      return Objects.equal(type, other.type)
+          && Objects.equal(location, other.location)
+          && Objects.equal(distance, other.distance)
+          && Objects.equal(route, other.route);
+    }
+    else
+    {
+      return false;
+    }
+  }
 }
