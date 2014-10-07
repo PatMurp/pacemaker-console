@@ -81,7 +81,8 @@ public class User
       return Objects.equal(firstName, other.firstName)
           && Objects.equal(lastName, other.lastName)
           && Objects.equal(email, other.email)
-          && Objects.equal(password, other.password);
+          && Objects.equal(password, other.password)
+          && Objects.equal(activities, other.activities);
     }
     else
     {
