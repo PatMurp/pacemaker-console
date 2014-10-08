@@ -89,7 +89,7 @@ public class Main
 	   * @param id
 	   */
 	  @Command(description="Delete a User")
-	  public void deleteUser (@Param(name="email") Long id)
+	  public void deleteUser (@Param(name="id") Long id)
 	  {
 		  Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
 		  if (user.isPresent())
@@ -134,6 +134,26 @@ public class Main
 		  		}
 		  		
 			  }
+	  
+	  /**
+	   * Command to read from persistent store(all users + activities)
+	   * @throws Exception
+	   */
+	  @Command(description="Load all users + activities")
+	  public void load() throws Exception
+	  {
+	    paceApi.load();
+	  }
+	  
+	  /**
+	   * Command to write to persistent store
+	   * @throws Exception
+	   */
+	  @Command(description="Store all users + activities")
+	  public void store() throws Exception
+	  {
+	    paceApi.store();
+	  }
 
   /**
    * Create a command line interface using cliche library
