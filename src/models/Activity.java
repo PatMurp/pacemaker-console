@@ -17,9 +17,8 @@ public class Activity
   public String type;
   public String location;
   public double distance;
-  
-  public String startTime;
-  public Long duration;
+  public String starttime;
+  public String duration;
 
   public List<Location> route = new ArrayList<>();
 
@@ -33,13 +32,18 @@ public class Activity
    * @param location
    * @param distance
    */
-  public Activity(String type, String location, double distance)
+  public Activity(String type, String location, double distance, String starttime, String duration)
   {
     this.id = counter++;
     this.type = type;
     this.location = location;
     this.distance = distance;
+    this.starttime = starttime;
+    this.duration = duration;
   }
+  
+  
+ 
 
   /** 
    * @return string representation
@@ -52,6 +56,8 @@ public class Activity
                                 .addValue(type)
                                 .addValue(location)
                                 .addValue(distance)
+                                .addValue(starttime)
+                                .addValue(duration)
                                 .addValue(route)
                                 .toString();
   }
@@ -62,7 +68,7 @@ public class Activity
   @Override
   public int hashCode()
   {
-    return Objects.hashCode(this.id, this.type, this.location, this.distance);
+    return Objects.hashCode(this.id, this.type, this.location, this.distance, this.starttime, this.duration);
   }
   
   /** 
@@ -77,6 +83,8 @@ public class Activity
       return Objects.equal(type, other.type)
           && Objects.equal(location, other.location)
           && Objects.equal(distance, other.distance)
+          && Objects.equal(starttime, other.starttime)
+          && Objects.equal(duration, other.duration)
           && Objects.equal(route, other.route);
     }
     else

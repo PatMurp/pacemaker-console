@@ -5,6 +5,7 @@ import java.util.*;
 import utils.Serializer;
 
 import com.google.common.base.Optional;
+
 import models.Activity;
 import models.Location;
 import models.User;
@@ -65,7 +66,7 @@ public class PacemakerAPI
 
   
   /**
-   * delete user data from user and email maps
+   * delete all user's data from user and email hashMaps
    */
   public void deleteUsers()
   {
@@ -110,6 +111,7 @@ public class PacemakerAPI
   }
 
   /**
+   * Delete a user 
    * @param id
    */
   public void deleteUser(Long id)
@@ -118,24 +120,45 @@ public class PacemakerAPI
     emailIndex.remove(user.email);
   }
 
-  public Activity createActivity(Long id, String type, String location, double distance)
+  /**
+   * Create an activity and associate with a user id
+   * @param id
+   * @param type
+   * @param location
+   * @param distance
+   * @param starttime
+   * @param duration
+   * @return activity
+   */
+  public Activity createActivity(Long id, String type, String location, double distance, String starttime, String duration)
   {
     Activity activity = null;
     Optional<User> user = Optional.fromNullable(userIndex.get(id)); 
     if (user.isPresent())
     {
-      activity = new Activity(type, location, distance);
+      activity = new Activity(type, location, distance, starttime, duration);
       user.get().activities.put(activity.id, activity);
       activitiesIndex.put(activity.id, activity);
     }
     return activity;
   }
 
+  /**
+   * Get an activity using activity id
+   * @param id
+   * @return activity
+   */
   public Activity getActivity(Long id)
   {
     return activitiesIndex.get(id);
   }
 
+  /**
+   * Add a location to an activity using the activity id
+   * @param id
+   * @param latitude
+   * @param longitude
+   */
   public void addLocation(Long id, float latitude, float longitude)
   {
     Optional<Activity> activity = Optional.fromNullable(activitiesIndex.get(id));

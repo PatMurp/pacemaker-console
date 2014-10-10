@@ -28,11 +28,16 @@ public class PersistanceTest
       pacemaker.createUser(user.firstName, user.lastName, user.email, user.password);
     }
     User user1 = pacemaker.getUserByEmail(users[0].email);
-    Activity activity = pacemaker.createActivity(user1.id, activities[0].type, activities[0].location, activities[0].distance);
-    pacemaker.createActivity(user1.id, activities[1].type, activities[1].location, activities[1].distance);
+    Activity activity = pacemaker.createActivity(user1.id, activities[0].type, activities[0].location, activities[0].distance,
+        activities[0].starttime, activities[0].duration);
+    pacemaker.createActivity(user1.id, activities[1].type, activities[1].location, activities[1].distance,
+        activities[1].starttime, activities[1].duration);
+    
     User user2 = pacemaker.getUserByEmail(users[1].email);
-    pacemaker.createActivity(user2.id, activities[2].type, activities[2].location, activities[2].distance);
-    pacemaker.createActivity(user2.id, activities[3].type, activities[3].location, activities[3].distance);
+    pacemaker.createActivity(user2.id, activities[2].type, activities[2].location, activities[2].distance,
+        activities[2].starttime, activities[2].duration);
+    pacemaker.createActivity(user2.id, activities[3].type, activities[3].location, activities[3].distance,
+        activities[3].starttime, activities[3].duration);
     
     for (Location location : locations)
     {
