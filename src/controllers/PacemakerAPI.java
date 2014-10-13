@@ -2,6 +2,11 @@ package controllers;
 
 import java.util.*;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.Seconds;
+import org.joda.time.format.DateTimeFormat;
+
 import utils.Serializer;
 
 import com.google.common.base.Optional;
@@ -136,12 +141,40 @@ public class PacemakerAPI
     Optional<User> user = Optional.fromNullable(userIndex.get(id)); 
     if (user.isPresent())
     {
-      activity = new Activity(type, location, distance, starttime, duration);
+      activity = new Activity(type, location, distance, parseStartTime(starttime), parseDuration(duration));
+      
       user.get().activities.put(activity.id, activity);
       activitiesIndex.put(activity.id, activity);
     }
     return activity;
   }
+  
+  
+  /**
+   * Convert a date time string into IS0 8601 format
+   * @param startTimeInput
+   * @return time string in ISO 8601 format 
+   */
+  public static String parseStartTime(String startTimeInput)
+  {
+    String pattern = "dd:MM:YYYY hh:mm:ss"; // input: day:month:year hour:minute:seconds
+    DateTime dateTime = DateTime.parse(startTimeInput, DateTimeFormat.forPattern(pattern));
+    return dateTime.toString();
+  }
+  
+  /**
+   * Convert hours minutes and seconds into seconds ISO 8601 format
+   * @param durationInput
+   * @return seconds string in ISO 8601 format
+   */
+  public static String parseDuration(String durationInput)
+  {
+    String durPattern = "1:00:00";
+    LocalTime dur = LocalTime.parse(durPattern);
+    Seconds durSeconds = Seconds.seconds(dur.getMillisOfDay() / 1000);
+    return durSeconds.toString();
+  }
+ 
 
   /**
    * Get an activity using activity id

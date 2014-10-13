@@ -66,6 +66,25 @@ public class PacemakerAPITest
     assertEquals (users.length-1, pacemaker.getUsers().size());
   }
   
+  
+  @Test
+  public void testParseStartTime()
+  {
+    String input = "12:10:2013 9:00:00";
+    String output = PacemakerAPI.parseStartTime(input);
+    assertNotEquals(output, input);
+    assertEquals("2013-10-12T09:00:00.000+01:00", output);
+  }
+  
+  @Test
+  public void testParseDuration()
+  {
+    String durInput = "1:00:00";
+    String durOutput = PacemakerAPI.parseDuration(durInput);
+    assertNotEquals(durInput, durOutput);
+    assertEquals("PT3600S", durOutput);
+  }
+  
   @Test
   public void testAddActivity()
   {
@@ -73,7 +92,14 @@ public class PacemakerAPITest
     Activity activity = pacemaker.createActivity(marge.id, activities[0].type, activities[0].location, activities[0].distance,
         activities[0].starttime, activities[0].duration);
     Activity returnedActivity = pacemaker.getActivity(activity.id);
-    assertEquals(activities[0], returnedActivity);
+    
+    String expectedStartTime = pacemaker.getActivity(activity.id).starttime;
+    assertEquals("2013-10-12T09:00:00.000+01:00", expectedStartTime);
+    
+    String expectedDuration = pacemaker.getActivity(activity.id).duration;
+    assertEquals("PT3600S", expectedDuration);
+    
+    //assertEquals(activities[0], returnedActivity);
     assertNotSame(activities[0], returnedActivity);
   }
   

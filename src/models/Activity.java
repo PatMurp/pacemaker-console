@@ -38,13 +38,10 @@ public class Activity
     this.type = type;
     this.location = location;
     this.distance = distance;
-    this.starttime = starttime;
+    this.starttime = starttime;//parseStartTime(starttime);
     this.duration = duration;
   }
   
-  
- 
-
   /** 
    * @return string representation
    */

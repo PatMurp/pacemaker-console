@@ -12,7 +12,7 @@ public class Fixtures
 
     public static Activity[] activities =
     {
-      new Activity ("walk",  "fridge", 0.001, "12:10:2013  9:00:00", "1:00:00"),
+      new Activity ("walk",  "fridge", 0.001, "12:10:2013 9:00:00", "1:00:00"),
       new Activity ("walk",  "bar",    1.0, "03:11:2013 11:15:00", "0:15:00"),
       new Activity ("run",   "work",   2.2, "21:05:2013 8:00:00", "0:30:00"),
       new Activity ("walk",  "shop",   2.5, "05:07:2013 11:30:00", "0:10:00"),
