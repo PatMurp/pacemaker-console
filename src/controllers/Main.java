@@ -136,7 +136,6 @@ public class Main
 		  		{
 		  			paceApi.addLocation(activity.get().id, latitude, longitude);
 		  		}
-		  		
 			  }
 	  
 	  /**

@@ -157,7 +157,7 @@ public class PacemakerAPI
    */
   public static String parseStartTime(String startTimeInput)
   {
-    String pattern = "dd:MM:YYYY hh:mm:ss"; // input: day:month:year hour:minute:seconds
+    String pattern = "dd:MM:YYYY hh:mm:ss"; // input: day:month:year 24hour:minute:seconds
     DateTime dateTime = DateTime.parse(startTimeInput, DateTimeFormat.forPattern(pattern));
     return dateTime.toString();
   }
@@ -169,12 +169,12 @@ public class PacemakerAPI
    */
   public static String parseDuration(String durationInput)
   {
-    String durPattern = "1:00:00";
-    LocalTime dur = LocalTime.parse(durPattern);
+    LocalTime dur = LocalTime.parse(durationInput);
     Seconds durSeconds = Seconds.seconds(dur.getMillisOfDay() / 1000);
     return durSeconds.toString();
   }
- 
+  
+  
 
   /**
    * Get an activity using activity id
