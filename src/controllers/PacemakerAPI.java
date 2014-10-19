@@ -2,11 +2,6 @@ package controllers;
 
 import java.util.*;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
-import org.joda.time.Seconds;
-import org.joda.time.format.DateTimeFormat;
-
 import utils.Serializer;
 
 import com.google.common.base.Optional;
@@ -141,39 +136,13 @@ public class PacemakerAPI
     Optional<User> user = Optional.fromNullable(userIndex.get(id)); 
     if (user.isPresent())
     {
-      activity = new Activity(type, location, distance, parseStartTime(starttime), parseDuration(duration));
+      activity = new Activity(type, location, distance, Activity.parseStartTime(starttime), Activity.parseDuration(duration));
       
       user.get().activities.put(activity.id, activity);
       activitiesIndex.put(activity.id, activity);
     }
     return activity;
   }
-  
-  
-  /**
-   * Convert a date time string into IS0 8601 format
-   * @param startTimeInput
-   * @return time string in ISO 8601 format 
-   */
-  public static String parseStartTime(String startTimeInput)
-  {
-    String pattern = "dd:MM:YYYY hh:mm:ss"; // input: day:month:year 24hour:minute:seconds
-    DateTime dateTime = DateTime.parse(startTimeInput, DateTimeFormat.forPattern(pattern));
-    return dateTime.toString();
-  }
-  
-  /**
-   * Convert hours minutes and seconds into seconds ISO 8601 format
-   * @param durationInput
-   * @return seconds string in ISO 8601 format
-   */
-  public static String parseDuration(String durationInput)
-  {
-    LocalTime dur = LocalTime.parse(durationInput);
-    Seconds durSeconds = Seconds.seconds(dur.getMillisOfDay() / 1000);
-    return durSeconds.toString();
-  }
-  
   
 
   /**
@@ -185,6 +154,22 @@ public class PacemakerAPI
   {
     return activitiesIndex.get(id);
   }
+  
+  
+  
+  
+  /**
+   * List a users activities using a user id
+   * @param id
+   * @return a users activities
+   */
+  public Map<Long, Activity> getUserActivities(Long id)
+  {
+    return userIndex.get(id).activities;
+  }
+  
+  
+
 
   /**
    * Add a location to an activity using the activity id

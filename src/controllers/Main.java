@@ -3,6 +3,7 @@ package controllers;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Map;
 
 import utils.Serializer;
 import utils.XMLSerializer;
@@ -137,6 +138,19 @@ public class Main
 		  			paceApi.addLocation(activity.get().id, latitude, longitude);
 		  		}
 			  }
+	  
+	  @Command 
+	  public void listActivities(Long id)
+	  {
+	    Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
+	    if (user.isPresent())
+	    {
+	      Map<Long, Activity> activ = paceApi.getUserActivities(user.get().id);
+	      System.out.println(activ);
+	    }
+
+	    
+	  }
 	  
 	  /**
 	   * Command to read from persistent store(all users + activities)

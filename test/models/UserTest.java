@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
 import static models.Fixtures.users;
 
 public class UserTest
@@ -51,4 +52,5 @@ public class UserTest
     assertSame(homer, homer);
     assertNotSame(homer, homer2);
   }
+
 }

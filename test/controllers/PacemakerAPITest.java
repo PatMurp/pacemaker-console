@@ -1,6 +1,9 @@
 package controllers;
 
 import static org.junit.Assert.*;
+
+import java.util.Map;
+
 import models.Activity;
 import models.Location;
 import models.User;
@@ -66,25 +69,6 @@ public class PacemakerAPITest
     assertEquals (users.length-1, pacemaker.getUsers().size());
   }
   
-  
-  @Test
-  public void testParseStartTime()
-  {
-    String input = "12:10:2013 9:00:00";
-    String output = PacemakerAPI.parseStartTime(input);
-    assertNotEquals(output, input);
-    assertEquals("2013-10-12T09:00:00.000+01:00", output);
-  }
-  
-  @Test
-  public void testParseDuration()
-  {
-    String durInput = "1:00:00";
-    String durOutput = PacemakerAPI.parseDuration(durInput);
-    assertNotEquals(durInput, durOutput);
-    assertEquals("PT3600S", durOutput);
-  }
-  
   @Test
   public void testAddActivity()
   {
@@ -102,6 +86,8 @@ public class PacemakerAPITest
     //assertEquals(activities[0], returnedActivity);
     assertNotSame(activities[0], returnedActivity);
   }
+  
+
   
   @Test
   public void testAddActivityWithSingleLocation()
@@ -138,6 +124,23 @@ public class PacemakerAPITest
       assertEquals(location, locations[i]);
       i++;
     }
+  }
+  
+  @Test
+  public void getUserActivities()
+  {
+    User marge = pacemaker.getUserByEmail("marge@simpson.com");
+    Activity activity1 = pacemaker.createActivity(marge.id, activities[0].type, activities[0].location, activities[0].distance,
+        activities[0].starttime, activities[0].duration);
+    Activity activity2 = pacemaker.createActivity(marge.id, activities[1].type, activities[1].location, activities[1].distance,
+        activities[1].starttime, activities[1].duration);
+    
+    Map<Long, Activity> userActivities = pacemaker.getUserActivities(marge.id);
+    
+    assertEquals(userActivities.size(), pacemaker.getUserActivities(marge.id).size());
+    assertNotEquals(activity1, pacemaker.getUserActivities(marge.id));
+    assertNotEquals(activity2, pacemaker.getUserActivities(marge.id));
+    
   }
 
 }

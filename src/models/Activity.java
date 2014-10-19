@@ -5,6 +5,11 @@ import static com.google.common.base.Objects.toStringHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.Seconds;
+import org.joda.time.format.DateTimeFormat;
+
 import com.google.common.base.Objects;
 
 public class Activity
@@ -68,6 +73,7 @@ public class Activity
     return Objects.hashCode(this.id, this.type, this.location, this.distance, this.starttime, this.duration);
   }
   
+  
   /** 
    * @return true if other object is equal to this one, otherwise return false
    */
@@ -88,5 +94,29 @@ public class Activity
     {
       return false;
     }
+  }
+  
+  /**
+   * Convert hours minutes and seconds into seconds ISO 8601 format
+   * @param durationInput
+   * @return seconds string in ISO 8601 format
+   */
+  public static String parseDuration(String durationInput)
+  {
+    LocalTime dur = LocalTime.parse(durationInput);
+    Seconds durSeconds = Seconds.seconds(dur.getMillisOfDay() / 1000);
+    return durSeconds.toString();
+  }
+  
+  /**
+   * Convert a date time string into IS0 8601 format
+   * @param starttime2
+   * @return time string in ISO 8601 format 
+   */
+  public static String parseStartTime(String starttime2)
+  {
+    // input: day:month:year 24hour:minute:seconds
+    DateTime dateTime = DateTime.parse(starttime2, DateTimeFormat.forPattern("dd:MM:yyyy hh:mm:ss"));
+    return dateTime.toString();
   }
 }
