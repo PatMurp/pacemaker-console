@@ -1,10 +1,10 @@
 package controllers;
 
-
 import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
+import utils.JSONSerializer;
 import utils.Serializer;
 import utils.XMLSerializer;
 
@@ -28,8 +28,10 @@ public class Main
    */
   public Main() throws Exception
   {
-    File datastore = new File("datastore.xml");
-    Serializer serializer  = new XMLSerializer(datastore);
+//    File datastore = new File("datastore.xml");
+//    Serializer serializer  = new XMLSerializer(datastore);
+    File datastore = new File("datastore.JSON");
+    Serializer serializer = new JSONSerializer(datastore);
     
     paceApi = new PacemakerAPI(serializer);
     if (datastore.isFile())
@@ -181,7 +183,7 @@ public class Main
   {
     Main main = new Main();
     
-    Shell shell = ShellFactory.createConsoleShell("pc", "Welcome to pcemaker-console - ?help for instructions", main);
+    Shell shell = ShellFactory.createConsoleShell("pm", "Welcome to pcemaker-console - ?help for instructions", main);
     shell.commandLoop(); 
     
     main.paceApi.store();

@@ -9,10 +9,8 @@ import java.util.Stack;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
-public class XMLSerializer implements Serializer
+public class JSONSerializer implements Serializer
 {
 
  @SuppressWarnings("rawtypes")
@@ -21,7 +19,7 @@ public class XMLSerializer implements Serializer
  
  
   
-  public XMLSerializer(File file)
+  public JSONSerializer(File file)
 {
   this.file = file;
 }
@@ -46,7 +44,7 @@ public class XMLSerializer implements Serializer
     
     try
     {
-      XStream xstream = new XStream(new DomDriver());
+      XStream xstream = new XStream(new JettisonMappedXmlDriver());
       is = xstream.createObjectInputStream(new FileReader(file));
       stack = (Stack) is.readObject();
     }
@@ -67,7 +65,7 @@ public class XMLSerializer implements Serializer
     
     try
     {
-      XStream xstream = new XStream(new DomDriver());
+      XStream xstream = new XStream(new JettisonMappedXmlDriver());
       os = xstream.createObjectOutputStream(new FileWriter(file));
       os.writeObject(stack);
     }

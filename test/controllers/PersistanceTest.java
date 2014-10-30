@@ -14,6 +14,7 @@ import static models.Fixtures.locations;
 
 import org.junit.Test;
 
+import utils.JSONSerializer;
 import utils.Serializer;
 import utils.XMLSerializer;
 
@@ -47,7 +48,7 @@ public class PersistanceTest
   
   void deleteFile(String fileName)
   {
-    File datastore = new File("testdatastore.xml");
+    File datastore = new File("testdatastore.JSON");
     if (datastore.exists())
     {
       datastore.delete();
@@ -71,10 +72,10 @@ public class PersistanceTest
   @Test
   public void testXMLSerializer() throws Exception
   {
-    String datastoreFile = "testdatastore.xml";
+    String datastoreFile = "testdatastore.JSON";
     deleteFile (datastoreFile);
     
-    Serializer serializer = new XMLSerializer(new File(datastoreFile));
+    Serializer serializer = new JSONSerializer(new File(datastoreFile));
     
     pacemaker = new PacemakerAPI(serializer);
     populate(pacemaker);
@@ -88,7 +89,7 @@ public class PersistanceTest
     {
       assertTrue(pacemaker2.getUsers().contains(user));
     }
-    deleteFile("testdatastore.xml");
+    deleteFile("testdatastore.JSON");
   }
 
 }
