@@ -1,6 +1,6 @@
 package models;
 
-import static com.google.common.base.Objects.toStringHelper;
+import static com.google.common.base.MoreObjects.toStringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,6 @@ public class Activity
   /** 
    * @return string representation
    */
-  @SuppressWarnings("deprecation")
   @Override
   public String toString()
   {

@@ -1,6 +1,6 @@
 package models;
 
-import static com.google.common.base.Objects.toStringHelper;
+import static com.google.common.base.MoreObjects.toStringHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +46,6 @@ public class User
   /** 
    * @return string representation
    */
-  @SuppressWarnings("deprecation")
   @Override
   public String toString()
   {

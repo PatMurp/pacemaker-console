@@ -2,8 +2,6 @@ package controllers;
 
 import static org.junit.Assert.*;
 
-import java.util.Map;
-
 import models.Activity;
 import models.Location;
 import models.User;
@@ -130,16 +128,17 @@ public class PacemakerAPITest
   public void getUserActivities()
   {
     User marge = pacemaker.getUserByEmail("marge@simpson.com");
-    Activity activity1 = pacemaker.createActivity(marge.id, activities[0].type, activities[0].location, activities[0].distance,
+    User bart = pacemaker.getUserByEmail("bart@simpson.com");
+    pacemaker.createActivity(marge.id, activities[0].type, activities[0].location, activities[0].distance,
         activities[0].starttime, activities[0].duration);
-    Activity activity2 = pacemaker.createActivity(marge.id, activities[1].type, activities[1].location, activities[1].distance,
+    pacemaker.createActivity(marge.id, activities[1].type, activities[1].location, activities[1].distance,
         activities[1].starttime, activities[1].duration);
     
-    Map<Long, Activity> userActivities = pacemaker.getUserActivities(marge.id);
+    pacemaker.createActivity(bart.id, activities[2].type, activities[2].location, activities[2].distance,
+        activities[2].starttime, activities[2].duration);
     
-    assertEquals(userActivities.size(), pacemaker.getUserActivities(marge.id).size());
-    assertNotEquals(activity1, pacemaker.getUserActivities(marge.id));
-    assertNotEquals(activity2, pacemaker.getUserActivities(marge.id));
+    assertEquals(2, pacemaker.getUserActivities(marge.id).size());
+    assertEquals(1, pacemaker.getUserActivities(bart.id).size());
     
   }
 

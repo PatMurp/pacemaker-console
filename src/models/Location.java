@@ -1,6 +1,6 @@
 package models;
 
-import static com.google.common.base.Objects.toStringHelper;
+import static com.google.common.base.MoreObjects.toStringHelper;
 
 import com.google.common.base.Objects;
 
@@ -33,7 +33,6 @@ public class Location
   /** 
    * @return string representation
    */
-  @SuppressWarnings("deprecation")
   @Override
   public String toString()
   {
