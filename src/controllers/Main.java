@@ -150,8 +150,8 @@ public class Main
      * Command to list a users activities using the users id
      * @param id
      */
-    @Command(description="Get a users activites") 
-    public void listActivities(@Param(name="user-id")Long id)
+    @Command(description="Get a users activities") 
+    public void listActivities(@Param(name="user id")Long id)
     {
       Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
       if (user.isPresent())
@@ -171,8 +171,9 @@ public class Main
      * @param id
      * @param parameter
      */
-    @Command
-    public void listActivities(Long id, String parameter)
+    @Command(description="Sort a users activities by parameters")
+    public void listActivities(@Param(name="userid")Long id, 
+        @Param(name="sortBy: type, location, distance, date, duration")String parameter)
     {
       Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
       if (user.isPresent())
