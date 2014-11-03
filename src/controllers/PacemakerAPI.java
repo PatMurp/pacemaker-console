@@ -155,9 +155,6 @@ public class PacemakerAPI
     return activitiesIndex.get(id);
   }
   
-  
-  
-  
   /**
    * List a users activities using a user id
    * @param id
@@ -168,9 +165,6 @@ public class PacemakerAPI
     return userIndex.get(id).activities;
   }
   
-  
-
-
   /**
    * Add a location to an activity using the activity id
    * @param id

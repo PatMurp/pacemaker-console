@@ -1,7 +1,10 @@
 package controllers;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import utils.JSONSerializer;
@@ -85,6 +88,8 @@ public class Main
 	  {
 		  Collection<User> users = paceApi.getUsers();
 		  System.out.println(users);
+		  
+		  
 	  }
 	
 	  /**
@@ -141,18 +146,72 @@ public class Main
 		  		}
 			  }
 	  
-	  @Command 
-	  public void listActivities(Long id)
-	  {
-	    Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
-	    if (user.isPresent())
-	    {
-	      Map<Long, Activity> activ = paceApi.getUserActivities(user.get().id);
-	      System.out.println(activ);
-	    }
-
-	    
+	  /**
+     * Command to list a users activities using the users id
+     * @param id
+     */
+    @Command(description="Get a users activites") 
+    public void listActivities(@Param(name="user-id")Long id)
+    {
+      Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
+      if (user.isPresent())
+      {
+        Map<Long, Activity> activ = paceApi.getUserActivities(user.get().id);
+        System.out.println(activ);
+      }
+      else
+      {
+        System.out.println("!!! The user: " + id + " does not exist. Please enter a valid user ID !!!");
+      }
 	  }
+    
+    /**
+     * Command to sort user activities by parameters
+     * type, location, distance, date, & duration
+     * @param id
+     * @param parameter
+     */
+    @Command
+    public void listActivities(Long id, String parameter)
+    {
+      Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
+      if (user.isPresent())
+      {
+        Map<Long, Activity> userActiv = paceApi.getUserActivities(user.get().id);
+        List<Activity> userActivList = new ArrayList<>(userActiv.values());
+        
+        switch(parameter)
+        {
+        case "type":
+          Collections.sort(userActivList, Activity.compareType);
+          System.out.println(userActivList);
+          break;
+        case "location":
+          Collections.sort(userActivList, Activity.compareLocation);
+          System.out.println(userActivList);
+          break;
+        case "distance":
+          Collections.sort(userActivList, Activity.compareDistance);
+          System.out.println(userActivList);
+          break;
+        case "date":
+          Collections.sort(userActivList, Activity.compareDate);
+          System.out.println(userActivList);
+          break;
+        case "duration":
+          Collections.sort(userActivList, Activity.compareDuration);
+          System.out.println(userActivList);
+          break;
+        default:
+          System.out.println("Invalid parameter: " + parameter + " Please enter valid parameter");
+          break;
+        }
+      }
+      else
+      {
+        System.out.println("!!! The user: " + id + " does not exist. Please enter a valid user ID !!!");
+      }
+    }
 	  
 	  /**
 	   * Command to read from persistent store(all users + activities)

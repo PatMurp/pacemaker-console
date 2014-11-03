@@ -3,6 +3,7 @@ package models;
 import static com.google.common.base.MoreObjects.toStringHelper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -12,7 +13,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import com.google.common.base.Objects;
 
-public class Activity
+public class Activity implements Comparable<Activity>
 {
 
   static Long counter = 0l;
@@ -118,4 +119,73 @@ public class Activity
     DateTime dateTime = DateTime.parse(starttime2, DateTimeFormat.forPattern("dd:MM:yyyy hh:mm:ss"));
     return dateTime.toString();
   }
+
+ 
+  /**
+   * default comparator sort activities by id
+   */
+  @Override
+  public int compareTo(Activity o)
+  {
+    return (int) (this.id -o.id);
+  }
+  
+  /**
+   * sort activities by type
+   */
+  public static Comparator<Activity> compareType = new Comparator<Activity>()
+  {
+    @Override
+    public int compare(Activity o1, Activity o2)
+    {
+      return o1.type.compareTo(o2.type);
+    }
+  };
+  
+  
+  /**
+   * sort activities by location
+   */
+  public static Comparator<Activity> compareLocation = new Comparator<Activity>()
+  {
+    @Override
+    public int compare(Activity o1, Activity o2)
+    {
+      return o1.location.compareTo(o2.location);
+    }
+  };
+  
+  /**
+   * sort activities by distance
+   */
+  public static Comparator<Activity> compareDistance = new Comparator<Activity>()  
+  {
+    @Override
+    public int compare(Activity o1, Activity o2)
+    {
+      return new Double (o1.distance).compareTo(o2.distance);
+    }
+  };
+  
+  /**
+   * sort activities by date
+   */
+  public static Comparator<Activity> compareDate = new Comparator<Activity>()
+  {
+    @Override
+    public int compare(Activity o1, Activity o2)
+    {
+      return o1.starttime.compareTo(o2.starttime);
+    }
+  };
+  
+  public static Comparator<Activity> compareDuration = new Comparator<Activity>()
+  {
+    @Override
+    public int compare(Activity o1, Activity o2)
+    {
+      return o1.duration.compareTo(o2.duration);
+    }
+  };
+      
 }

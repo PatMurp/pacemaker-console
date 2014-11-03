@@ -42,6 +42,7 @@ public class User
     this.email = email;
     this.password = password;
   }
+  
 
   /** 
    * @return string representation
@@ -52,12 +53,11 @@ public class User
     return toStringHelper(this).addValue(id)
                                .addValue(firstName)
                                .addValue(lastName)
-                               .addValue(password)
                                .addValue(email)
+                               .addValue(password)
                                .addValue(activities)
                                .toString();
   }
-  
   
 
   /**

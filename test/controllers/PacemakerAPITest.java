@@ -81,7 +81,7 @@ public class PacemakerAPITest
     String expectedDuration = pacemaker.getActivity(activity.id).duration;
     assertEquals("PT3600S", expectedDuration);
     
-    //assertEquals(activities[0], returnedActivity);
+    assertNotEquals(activities[0], returnedActivity);
     assertNotSame(activities[0], returnedActivity);
   }
   
@@ -139,7 +139,5 @@ public class PacemakerAPITest
     
     assertEquals(2, pacemaker.getUserActivities(marge.id).size());
     assertEquals(1, pacemaker.getUserActivities(bart.id).size());
-    
   }
-
 }
