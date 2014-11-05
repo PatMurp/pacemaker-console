@@ -16,8 +16,8 @@ public class UserTest
   @Test
   public void testCreate()
   {
-    assertEquals ("homer",               homer.firstName);
-    assertEquals ("simpson",             homer.lastName);
+    assertEquals ("homer",               homer.firstname);
+    assertEquals ("simpson",             homer.lastname);
     assertEquals ("homer@simpson.com",   homer.email);   
     assertEquals ("secret",              homer.password);   
   }

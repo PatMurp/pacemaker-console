@@ -26,7 +26,7 @@ public class PersistanceTest
   {
     for (User user : users)
     {
-      pacemaker.createUser(user.firstName, user.lastName, user.email, user.password);
+      pacemaker.createUser(user.firstname, user.lastname, user.email, user.password);
     }
     User user1 = pacemaker.getUserByEmail(users[0].email);
     Activity activity = pacemaker.createActivity(user1.id, activities[0].type, activities[0].location, activities[0].distance,

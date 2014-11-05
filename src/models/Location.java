@@ -30,6 +30,7 @@ public class Location
     this.longitude = longitude;
   }
   
+  
   /** 
    * @return string representation
    */

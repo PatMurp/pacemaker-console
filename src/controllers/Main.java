@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,9 @@ import utils.JSONSerializer;
 import utils.Serializer;
 import utils.XMLSerializer;
 
+import com.bethecoder.ascii_table.ASCIITable;
+import com.bethecoder.ascii_table.impl.CollectionASCIITableAware;
+import com.bethecoder.ascii_table.spec.IASCIITableAware;
 import com.google.common.base.Optional;
 
 import models.Activity;
@@ -56,6 +60,10 @@ public class Main
 	                          @Param(name="email")      String email,     @Param(name="password")  String password)
 	  {
 		paceApi.createUser(firstName, lastName, email, password);
+		
+		System.out.println("ok");
+		List<User> newUser = Arrays.asList(paceApi.getUserByEmail(email));
+		User.userTable(newUser);
 	  }
 	
 	  /**
@@ -65,8 +73,21 @@ public class Main
 	  @Command(description="Get a Users details")
 	  public void listUser (@Param(name="email") String email)
 	  {
-		  User user = paceApi.getUserByEmail(email);
-		  System.out.println(user);
+	    Optional<User> user = Optional.fromNullable(paceApi.getUserByEmail(email));
+      if (user.isPresent())
+      {
+        System.out.println("ok");
+        List<User> userEmail = Arrays.asList(paceApi.getUserByEmail(email));
+        User.userTable(userEmail);
+      }
+      else
+      {
+        System.out.println();
+        System.out.println("Invalid email : " + email + " Please enter a valid email");
+        System.out.println();
+      }
+	    
+		  
 	  }
 	  
 	  /**
@@ -76,8 +97,19 @@ public class Main
 	  @Command(description="Get a Users details")
 	  public void listUser(@Param(name="id")Long id)
 	  {
-	    User user = paceApi.getUser(id);
-	    System.out.println(user);
+	    Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
+      if (user.isPresent())
+	    {
+        System.out.println("ok");
+        List<User> userId = Arrays.asList(paceApi.getUser(id));
+	      User.userTable(userId);
+	    }
+	    else
+	    {
+	      System.out.println();
+	      System.out.println("Invalid id: " + id + " Please enter a valid id");
+	      System.out.println();
+	    }
 	  }
 	
 	  /**
@@ -86,10 +118,19 @@ public class Main
 	  @Command(description="Get all users details")
 	  public void listUsers ()
 	  {
-		  Collection<User> users = paceApi.getUsers();
-		  System.out.println(users);
-		  
-		  
+      List<User> allUsers = new ArrayList<>(paceApi.getUsers());
+      
+      if (allUsers.size() > 0)
+      {
+        System.out.println("ok");
+        User.userTable(allUsers);
+      }
+      else
+      {
+        System.out.println();
+        System.out.println(allUsers);
+        System.out.println();
+      }
 	  }
 	
 	  /**
@@ -103,8 +144,9 @@ public class Main
 		  if (user.isPresent())
 		  {
 			  paceApi.deleteUser(user.get().id);
+			  System.out.println("ok");
+			  System.out.println();
 		  }
-		  
 	  }
 	  
 	 
@@ -126,6 +168,16 @@ public class Main
 	    if (user.isPresent())
 	    {
 	      paceApi.createActivity(id, type, location, distance, starttime, duration);
+	      System.out.println("ok");
+	      
+	      List<Activity> newActivitiy = Arrays.asList(paceApi.getActivity(id));
+	      Activity.activityTable(newActivitiy);
+	    }
+	    else
+	    {
+	      System.out.println();
+        System.out.println("Invalid id: " + id + " Please enter a valid id");
+        System.out.println();
 	    }
 	  }
 	  
@@ -156,12 +208,16 @@ public class Main
       Optional<User> user = Optional.fromNullable(paceApi.getUser(id));
       if (user.isPresent())
       {
+        System.out.println("ok");
         Map<Long, Activity> activ = paceApi.getUserActivities(user.get().id);
-        System.out.println(activ);
+        List<Activity> usrActiv = new ArrayList<>(activ.values());
+        Activity.activityTable(usrActiv);
       }
       else
       {
-        System.out.println("!!! The user: " + id + " does not exist. Please enter a valid user ID !!!");
+        System.out.println();
+        System.out.println("The user: " + id + " does not exist. Please enter a valid user ID");
+        System.out.println();
       }
 	  }
     
@@ -180,37 +236,42 @@ public class Main
       {
         Map<Long, Activity> userActiv = paceApi.getUserActivities(user.get().id);
         List<Activity> userActivList = new ArrayList<>(userActiv.values());
+        System.out.println("ok");
         
         switch(parameter)
         {
         case "type":
           Collections.sort(userActivList, Activity.compareType);
-          System.out.println(userActivList);
+          Activity.activityTable(userActivList);
           break;
         case "location":
           Collections.sort(userActivList, Activity.compareLocation);
-          System.out.println(userActivList);
+          Activity.activityTable(userActivList);
           break;
         case "distance":
           Collections.sort(userActivList, Activity.compareDistance);
-          System.out.println(userActivList);
+          Activity.activityTable(userActivList);
           break;
         case "date":
           Collections.sort(userActivList, Activity.compareDate);
-          System.out.println(userActivList);
+          Activity.activityTable(userActivList);
           break;
         case "duration":
           Collections.sort(userActivList, Activity.compareDuration);
-          System.out.println(userActivList);
+          Activity.activityTable(userActivList);
           break;
         default:
+          System.out.println();
           System.out.println("Invalid parameter: " + parameter + " Please enter valid parameter");
+          System.out.println();
           break;
         }
       }
       else
       {
+        System.out.println();
         System.out.println("!!! The user: " + id + " does not exist. Please enter a valid user ID !!!");
+        System.out.println();
       }
     }
 	  

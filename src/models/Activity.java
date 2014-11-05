@@ -11,6 +11,9 @@ import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 
+import com.bethecoder.ascii_table.ASCIITable;
+import com.bethecoder.ascii_table.impl.CollectionASCIITableAware;
+import com.bethecoder.ascii_table.spec.IASCIITableAware;
 import com.google.common.base.Objects;
 
 public class Activity implements Comparable<Activity>
@@ -47,6 +50,8 @@ public class Activity implements Comparable<Activity>
     this.starttime = starttime;
     this.duration = duration;
   }
+  
+  
   
   /** 
    * @return string representation
@@ -97,6 +102,118 @@ public class Activity implements Comparable<Activity>
   }
   
   /**
+   * @return id
+   */
+  public Long getId()
+  {
+    return id;
+  }
+
+  /**
+   * @param id
+   */
+  public void setId(Long id)
+  {
+    this.id = id;
+  }
+
+  /**
+   * @return type
+   */
+  public String getType()
+  {
+    return type;
+  }
+
+  /**
+   * @param type
+   */
+  public void setType(String type)
+  {
+    this.type = type;
+  }
+
+  /**
+   * @return location
+   */
+  public String getLocation()
+  {
+    return location;
+  }
+
+  /**
+   * @param location
+   */
+  public void setLocation(String location)
+  {
+    this.location = location;
+  }
+
+  /**
+   * @return distance
+   */
+  public double getDistance()
+  {
+    return distance;
+  }
+
+  /**
+   * @param distance
+   */
+  public void setDistance(double distance)
+  {
+    this.distance = distance;
+  }
+
+  /**
+   * @return
+   */
+  public String getStarttime()
+  {
+    return starttime;
+  }
+
+  /**
+   * @param starttime
+   */
+  public void setStarttime(String starttime)
+  {
+    this.starttime = starttime;
+  }
+
+  /**
+   * @return duration
+   */
+  public String getDuration()
+  {
+    return duration;
+  }
+
+  /**
+   * @param duration
+   */
+  public void setDuration(String duration)
+  {
+    this.duration = duration;
+  }
+
+  /**
+   * @return route
+   */
+  public List<Location> getRoute()
+  {
+    return route;
+  }
+
+  /**
+   * @param route
+   */
+  public void setRoute(List<Location> route)
+  {
+    this.route = route;
+  }
+  
+  /**
    * Convert hours minutes and seconds into seconds ISO 8601 format
    * @param durationInput
    * @return seconds string in ISO 8601 format
@@ -113,10 +230,10 @@ public class Activity implements Comparable<Activity>
    * @param starttime2
    * @return time string in ISO 8601 format 
    */
-  public static String parseStartTime(String starttime2)
+  public static String parseStartTime(String starttime)
   {
     // input: day:month:year 24hour:minute:seconds
-    DateTime dateTime = DateTime.parse(starttime2, DateTimeFormat.forPattern("dd:MM:yyyy hh:mm:ss"));
+    DateTime dateTime = DateTime.parse(starttime, DateTimeFormat.forPattern("dd:MM:yyyy hh:mm:ss"));
     return dateTime.toString();
   }
 
@@ -179,6 +296,9 @@ public class Activity implements Comparable<Activity>
     }
   };
   
+  /**
+   * sort activities by duration
+   */
   public static Comparator<Activity> compareDuration = new Comparator<Activity>()
   {
     @Override
@@ -187,5 +307,18 @@ public class Activity implements Comparable<Activity>
       return o1.duration.compareTo(o2.duration);
     }
   };
-      
+     
+  /**
+   * Display activities in tabular format using btc-ascii-table 1.0 library 
+   * @param activities
+   */
+  @SuppressWarnings("rawtypes")
+  public static void activityTable(List activities)
+  {
+    @SuppressWarnings("unchecked")
+    IASCIITableAware activTable =
+        new CollectionASCIITableAware<>(activities, 
+            "id", "type", "location", "distance", "starttime", "duration", "route");
+    ASCIITable.getInstance().printTable(activTable);
+  }
 }
