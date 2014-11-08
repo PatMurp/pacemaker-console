@@ -8,8 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.Stack;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class XMLSerializer implements Serializer

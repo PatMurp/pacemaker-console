@@ -1,11 +1,11 @@
 cu homer simpsom homer@simpson.com secret
 cu marge simpson marge@simpson.com secret
 aa 0 walk fridge .001 "12:10:2013 9:00:00" 1:00:0
-aa 0 walk bar 1.0 "03:11:2013 11:15:00" 00:05:00
+aa 0 walk bar 1.0 "03:10:2013 11:15:00" 00:05:00
 aa 0 run work 2.2 "21:05:2013 8:00:00" 00:30:00
 aa 1 walk shop 2.5 "05:07:2013 11:30:00" 00:10:00
-aa 1 cycle shop 4.5 "30:11:2013 09:00:00" 01:30:00
+aa 1 cycle shop 4.5 "30:09:2013 09:00:00" 01:30:00
 al 2 23.3 32.3
-al 4 23.3 32.5
-al 3 23.3 32.6
+al 2 23.3 32.5
+al 2 23.3 32.6
 

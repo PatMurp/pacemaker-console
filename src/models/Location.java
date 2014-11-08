@@ -1,7 +1,5 @@
 package models;
 
-import static com.google.common.base.MoreObjects.toStringHelper;
-
 import com.google.common.base.Objects;
 
 public class Location
@@ -30,19 +28,15 @@ public class Location
     this.longitude = longitude;
   }
   
-  
   /** 
    * @return string representation
    */
   @Override
   public String toString()
   {
-    return toStringHelper(this) .addValue(id)
-                                .addValue(latitude)
-                                .addValue(longitude)
-                                .toString();
+    return latitude + "," + longitude;
   }
-
+  
   /**
    * @return a hash code value
    */

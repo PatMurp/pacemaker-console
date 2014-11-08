@@ -3,7 +3,6 @@ package controllers;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +11,6 @@ import utils.JSONSerializer;
 import utils.Serializer;
 import utils.XMLSerializer;
 
-import com.bethecoder.ascii_table.ASCIITable;
-import com.bethecoder.ascii_table.impl.CollectionASCIITableAware;
-import com.bethecoder.ascii_table.spec.IASCIITableAware;
 import com.google.common.base.Optional;
 
 import models.Activity;
@@ -35,16 +31,38 @@ public class Main
    */
   public Main() throws Exception
   {
-//    File datastore = new File("datastore.xml");
-//    Serializer serializer  = new XMLSerializer(datastore);
-    File datastore = new File("datastore.JSON");
-    Serializer serializer = new JSONSerializer(datastore);
+    File datastore = new File("datastore.xml");
+    Serializer serializer  = new XMLSerializer(datastore);
+//    File datastore = new File("datastore.JSON");
+//    Serializer serializer = new JSONSerializer(datastore);
     
     paceApi = new PacemakerAPI(serializer);
-    if (datastore.isFile())
-    {
-      paceApi.load();
-    }
+//    if (datastore.isFile())
+//    {
+//      //load();
+//    }
+  }
+  
+  
+  
+  /**
+   * Command to read from persistent store(all users + activities)
+   * @throws Exception
+   */
+  @Command(description="Load all users + activities")
+  public void load() throws Exception
+  {
+    paceApi.load();
+  }
+  
+  /**
+   * Command to write to persistent store
+   * @throws Exception
+   */
+  @Command(description="Store all users + activities")
+  public void store() throws Exception
+  {
+    paceApi.store();
   }
 
 	/**
@@ -275,25 +293,6 @@ public class Main
       }
     }
 	  
-	  /**
-	   * Command to read from persistent store(all users + activities)
-	   * @throws Exception
-	   */
-	  @Command(description="Load all users + activities")
-	  public void load() throws Exception
-	  {
-	    paceApi.load();
-	  }
-	  
-	  /**
-	   * Command to write to persistent store
-	   * @throws Exception
-	   */
-	  @Command(description="Store all users + activities")
-	  public void store() throws Exception
-	  {
-	    paceApi.store();
-	  }
 
   /**
    * Create a command line interface using cliche library
@@ -304,9 +303,9 @@ public class Main
   {
     Main main = new Main();
     
-    Shell shell = ShellFactory.createConsoleShell("pm", "Welcome to pcemaker-console - ?help for instructions", main);
+    Shell shell = ShellFactory.createConsoleShell("pm", "Welcome to pacemaker-console - ?help for instructions", main);
     shell.commandLoop(); 
     
-    main.paceApi.store();
+    //main.paceApi.store();
   }
 }
