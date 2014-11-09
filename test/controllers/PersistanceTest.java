@@ -72,6 +72,29 @@ public class PersistanceTest
   @Test
   public void testXMLSerializer() throws Exception
   {
+    String datastoreFile = "testdatastore.XML";
+    deleteFile (datastoreFile);
+    
+    Serializer serializer = new XMLSerializer(new File(datastoreFile));
+    
+    pacemaker = new PacemakerAPI(serializer);
+    populate(pacemaker);
+    pacemaker.store();
+    
+    PacemakerAPI pacemaker2 = new PacemakerAPI(serializer);
+    pacemaker2.load();
+    
+    assertEquals(pacemaker.getUsers().size(), pacemaker2.getUsers().size());
+    for (User user : pacemaker.getUsers())
+    {
+      assertTrue(pacemaker2.getUsers().contains(user));
+    }
+    deleteFile("testdatastore.XML");
+  }
+  
+  @Test
+  public void testJSONSerializer() throws Exception
+  {
     String datastoreFile = "testdatastore.JSON";
     deleteFile (datastoreFile);
     
