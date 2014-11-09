@@ -46,9 +46,18 @@ public class PersistanceTest
     }
   }
   
-  void deleteFile(String fileName)
+  void deleteJSONFile(String fileName)
   {
     File datastore = new File("testdatastore.JSON");
+    if (datastore.exists())
+    {
+      datastore.delete();
+    }
+  }
+  
+  void deleteXMLFile(String fileName)
+  {
+    File datastore = new File("testdatastore.XML");
     if (datastore.exists())
     {
       datastore.delete();
@@ -73,7 +82,7 @@ public class PersistanceTest
   public void testXMLSerializer() throws Exception
   {
     String datastoreFile = "testdatastore.XML";
-    deleteFile (datastoreFile);
+    deleteXMLFile (datastoreFile);
     
     Serializer serializer = new XMLSerializer(new File(datastoreFile));
     
@@ -89,14 +98,14 @@ public class PersistanceTest
     {
       assertTrue(pacemaker2.getUsers().contains(user));
     }
-    deleteFile("testdatastore.XML");
+    deleteXMLFile("testdatastore.XML");
   }
   
   @Test
   public void testJSONSerializer() throws Exception
   {
     String datastoreFile = "testdatastore.JSON";
-    deleteFile (datastoreFile);
+    deleteJSONFile (datastoreFile);
     
     Serializer serializer = new JSONSerializer(new File(datastoreFile));
     
@@ -112,7 +121,7 @@ public class PersistanceTest
     {
       assertTrue(pacemaker2.getUsers().contains(user));
     }
-    deleteFile("testdatastore.JSON");
+    deleteJSONFile("testdatastore.JSON");
   }
 
 }
