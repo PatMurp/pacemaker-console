@@ -180,34 +180,42 @@ public class Main
       Map<Long, Activity> userActiv = paceApi.getUserActivities(user.get().id);
       List<Activity> userActivList = new ArrayList<>(userActiv.values());
       System.out.println("ok");
-
-      switch (parameter)
+      if (userActivList.size() > 0)
       {
-      case "type":
-        Collections.sort(userActivList, Activity.compareType);
-        Activity.activityTable(userActivList);
-        break;
-      case "location":
-        Collections.sort(userActivList, Activity.compareLocation);
-        Activity.activityTable(userActivList);
-        break;
-      case "distance":
-        Collections.sort(userActivList, Activity.compareDistance);
-        Activity.activityTable(userActivList);
-        break;
-      case "date":
-        Collections.sort(userActivList, Activity.compareDate);
-        Activity.activityTable(userActivList);
-        break;
-      case "duration":
-        Collections.sort(userActivList, Activity.compareDuration);
-        Activity.activityTable(userActivList);
-        break;
-      default:
+        switch (parameter)
+        {
+        case "type":
+          Collections.sort(userActivList, Activity.compareType);
+          Activity.activityTable(userActivList);
+          break;
+        case "location":
+          Collections.sort(userActivList, Activity.compareLocation);
+          Activity.activityTable(userActivList);
+          break;
+        case "distance":
+          Collections.sort(userActivList, Activity.compareDistance);
+          Activity.activityTable(userActivList);
+          break;
+        case "date":
+          Collections.sort(userActivList, Activity.compareDate);
+          Activity.activityTable(userActivList);
+          break;
+        case "duration":
+          Collections.sort(userActivList, Activity.compareDuration);
+          Activity.activityTable(userActivList);
+          break;
+        default:
+          System.out.println();
+          System.out.println("Invalid parameter: " + parameter + " Please enter valid parameter");
+          System.out.println();
+          break;
+        }
+      }
+      else
+      {
         System.out.println();
-        System.out.println("Invalid parameter: " + parameter + " Please enter valid parameter");
+        System.out.println(userActivList);
         System.out.println();
-        break;
       }
     }
     else
@@ -232,7 +240,16 @@ public class Main
       System.out.println("ok");
       Map<Long, Activity> activ = paceApi.getUserActivities(user.get().id);
       List<Activity> usrActiv = new ArrayList<>(activ.values());
-      Activity.activityTable(usrActiv);
+      if (usrActiv.size() > 0)
+      {
+        Activity.activityTable(usrActiv);
+      }
+      else
+      {
+        System.out.println();
+        System.out.println(usrActiv);
+        System.out.println();
+      }
     }
     else
     {
